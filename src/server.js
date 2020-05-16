@@ -1,6 +1,8 @@
 const express = require('express');
 const routes = require('./routes');
 const mongoose = require('mongoose');
+const cors = require('cors')
+const { resolve } = require('path')
 
 const app = express();
 
@@ -9,6 +11,8 @@ mongoose.connect('mongodb+srv://semana:semana@cluster0-0es0u.mongodb.net/semana0
   useUnifiedTopology: true,
 })
 
+app.use(cors());
 app.use(express.json());
+app.use('/files', express.static(resolve(__dirname, '..', 'uploads')));
 app.use(routes); 
 app.listen('3333');
